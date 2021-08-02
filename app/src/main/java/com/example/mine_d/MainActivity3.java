@@ -16,6 +16,7 @@ public class MainActivity3 extends AppCompatActivity {
     private TextView textView3;
     private Button button3;
     private Button button4;
+    private Button button9;
     private int STORAGE_PERMISSION_CODE =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity3 extends AppCompatActivity {
         textView3 = findViewById(R.id.textView3);
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
+        button9 = findViewById(R.id.button9);
         Intent k = getIntent();
         String p1 = k.getStringExtra("msg");
         String p2 = k.getStringExtra("tame");
@@ -42,6 +44,11 @@ public class MainActivity3 extends AppCompatActivity {
     {
         finishAffinity();
         System.exit(0);
+    }
+    public void home(View v)
+    {
+        Intent intent = new Intent(getApplicationContext(),MainActivity5.class);
+        startActivity(intent);
     }
     private void requestStoragePermission()
     {

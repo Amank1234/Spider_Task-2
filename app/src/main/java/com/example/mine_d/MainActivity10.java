@@ -4,42 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity2 extends AppCompatActivity {
-private TextView textView;
-    private TextView textView5;
-    private TextView textView4;
-private Button button;
-private Button button2;
+public class MainActivity10 extends AppCompatActivity {
+    private TextView textView6;
+    private TextView textView2;
+    private TextView textView3;
+    private Button button3;
+    private Button button4;
     private Button button9;
     private int STORAGE_PERMISSION_CODE =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        textView = findViewById(R.id.textView);
-        textView5 = findViewById(R.id.textView5);
-        textView4 = findViewById(R.id.textView4);
-        button = findViewById(R.id.button);
-        button2 = findViewById(R.id.button2);
+        setContentView(R.layout.activity_main3);
+        textView6 = findViewById(R.id.textView6);
+        textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
+        button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
         button9 = findViewById(R.id.button9);
         Intent k = getIntent();
         String p1 = k.getStringExtra("msg");
-        String p2 = k.getStringExtra("score");
-        textView.setText(p1);
-        textView5.setText(p2);
+        String p2 = k.getStringExtra("tame");
+        textView2.setText(p1);
+        textView6.setText(p2);
         requestStoragePermission();
     }
     public void Caltech(View v)
     {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainActivity8.class);
         startActivity(intent);
     }
     public void caltalk(View v)

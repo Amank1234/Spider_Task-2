@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity2 extends AppCompatActivity {
-private TextView textView;
+public class MainActivity9 extends AppCompatActivity {
+    private TextView textView;
     private TextView textView5;
     private TextView textView4;
-private Button button;
-private Button button2;
+    private Button button;
+    private Button button2;
     private Button button9;
     private int STORAGE_PERMISSION_CODE =1;
     @Override
@@ -39,7 +39,7 @@ private Button button2;
     }
     public void Caltech(View v)
     {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainActivity8.class);
         startActivity(intent);
     }
     public void caltalk(View v)

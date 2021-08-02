@@ -7,8 +7,8 @@ import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
 
-public class MainActivity4 extends AppCompatActivity {
-Mined mined;
+public class MainActivity8 extends AppCompatActivity {
+    Minede minede;
     private int STORAGE_PERMISSION_CODE =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,11 +16,11 @@ Mined mined;
         requestStoragePermission();
 
 
-        mined = new Mined(this,getApplicationContext());
-        mined.setBackgroundColor(Color.WHITE);
-        mined.setNumColumns(8);
-        mined.setNumRows(8);
-        setContentView(mined);
+        minede = new Minede(this,getApplicationContext());
+        minede.setBackgroundColor(Color.WHITE);
+        minede.setNumColumns(8);
+        minede.setNumRows(8);
+        setContentView(minede);
     }
     private void requestStoragePermission()
     {

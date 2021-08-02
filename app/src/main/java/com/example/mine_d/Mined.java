@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Mine extends View {
+public class Mined extends View {
 
 
     private static Context context;
@@ -40,6 +40,7 @@ public class Mine extends View {
     int x6 = new Random().nextInt(8);
     int x7 = new Random().nextInt(8);
     int x8 = new Random().nextInt(8);
+
     int y1 = new Random().nextInt(8);
     int c, d, e, f, h, k, l, g;
     int count = 0;
@@ -48,7 +49,7 @@ public class Mine extends View {
     int am = 0;
     int timec = 0;
 
-    public Mine(Context context, Context context1) {
+    public Mined(Context context, Context context1) {
         super(context);
 
         blackPaint = new Paint();
@@ -59,9 +60,17 @@ public class Mine extends View {
         setFocusableInTouchMode(true);
 
         this.context = context1;
+        if(x1<3)
+        {
+            y1 = 3 + new Random().nextInt(5);
+        }
+        else
+        {
+            y1 = new Random().nextInt(3);
+        }
     }
 
-    public Mine(Context context, @Nullable AttributeSet attrs) {
+    public Mined(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         blackPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
@@ -116,6 +125,8 @@ public class Mine extends View {
 
 
         am = 0;
+        if (x1 != y1) {
+
 
         for (int i = 0; i < numColumns; i++) {
             for (int j = 0; j < numRows; j++) {
@@ -123,7 +134,7 @@ public class Mine extends View {
 
                     am++;
 
-                    if ((i == x1 && j == 0) || (i == x2 && j == 1) || (i == x3 && j == 2) || (i == x4 && j == 3) || (i == x5 && j == 4) || (i == x6 && j == 5) || (i == x7 && j == 6) || (i == x8 && j == 7))
+                    if ((i == x1 && j == 0) || (i==y1 && j==0)|| (i == x2 && j == 1) || (i == x3 && j == 2) || (i == x4 && j == 3) || (i == x5 && j == 4) || (i == x6 && j == 5) || (i == x7 && j == 6) || (i == x8 && j == 7))
                     {
 
                         if (cp == 0) {
@@ -132,30 +143,77 @@ public class Mine extends View {
                             canvas.drawRect(i * cellWidth, j * cellWidth,
                                     (i + 1) * cellWidth, (j + 1) * cellWidth,
                                     mypaint);
-                            if (j == 0) {
-                                if (x1 < 7) {
+                            if (j == 0)
+                            {
+                                if (x1 < 7)
+                                {
                                     x1 = x1 + 1;
-                                } else {
+                                }
+                                else
+                                    {
                                     x1 = x1 - 1;
                                 }
 
+                                if(y1<7)
+                                {
+                                    y1 = y1+1;
+                                }
+                                else
+                                {
+                                    y1 = y1 -1;
+                                }
 
-                                if ((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1)) {
+
+                                if ((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i!=y1 - 1 && i!=y1 + 1))
+                                {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
-                                } else if ((i == x2 || i + 1 == x2 || i - 1 == x2) && (i != x1 - 1 && i != x1 + 1)) {
+                                }
+                                else if ((i == x2 || i + 1 == x2 || i - 1 == x2) && (i != x1 - 1 && i != x1 + 1)&&(i!=y1 - 1 && i!=y1 + 1)) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
-                                } else if ((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2)) {
+                                }
+                                else if((i != x1 - 1 && i != x1 + 1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i+1 == y1 || i-1 ==y1))
+                                {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i!=y1 - 1 && i!=y1 + 1))
+                                {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
-                                } else {
+                                }
+                                else if((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i+1 == y1 || i-1 ==y1))
+                                {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if((i != x1 - 1 && i != x1 + 1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i+1 == y1 || i-1 ==y1))
+                                {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i+1 == y1 || i-1 ==y1))
+                                {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else
+                                    {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
@@ -171,7 +229,7 @@ public class Mine extends View {
                                 }
 
 
-                                if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+                                if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
@@ -179,47 +237,98 @@ public class Mine extends View {
                                 }
 
 //                    else if((i==x1||i+1==x1||i-1==x1))
-                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
                                 }
 //                    else if(i==x3||i+1==x3||i-1==x3)
-                                else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1)))
+                                {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
                                 }
 //                    else if((i+1==x2||i-1==x2)&&(i==x1||i+1==x1||i-1==x1))
-                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                                 }
 //                    else if((i+1==x2||i-1==x2)&&(i==x3||i+1==x3||i-1==x3))
-                                else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                                 }
 //                    else if((i==x3||i+1==x3||i-1==x3)&&(i==x1||i+1==x1||i-1==x1))
-                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                                 }
 //                    else if((i+1==x2||i-1==x2)&&(i==x1||i+1==x1||i-1==x1)&&(i==x3||i+1==x3||i-1==x3))
-                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
                                     canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
-                                } else {
+                                }
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                    cp++;
+                                    paint.setColor(Color.BLACK);
+                                    paint.setTextSize(100);
+                                    canvas.drawText("4", i * cellWidth, (j + 1) * cellWidth, paint);
+                                }
+                                else
+                                    {
                                     cp++;
                                     paint.setColor(Color.BLACK);
                                     paint.setTextSize(100);
@@ -571,11 +680,17 @@ public class Mine extends View {
 
                             }
 
-                        } else {
-                            Mine.vibrateDevice(context);
+                        }
+                        else
+                            {
+                            Mined.vibrateDevice(context);
                             blackPaint.setColor(Color.RED);
                             canvas.drawRect(x1 * cellWidth, 0 * cellWidth,
-                                    (x1 + 1) * cellWidth, (0 + 1) * cellWidth,
+                                    (x1 + 1) * cellWidth, (0+1)*cellWidth,
+                                    blackPaint);
+                            blackPaint.setColor(Color.RED);
+                            canvas.drawRect(y1 * cellWidth, 0 * cellWidth,
+                                    (y1 + 1) * cellWidth, (0 + 1) * cellWidth,
                                     blackPaint);
                             blackPaint.setColor(Color.RED);
                             canvas.drawRect(x2 * cellWidth, 1 * cellWidth,
@@ -609,8 +724,8 @@ public class Mine extends View {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String s3 = Integer.toString(am -1);
-                                    Intent i1 = new Intent(context, MainActivity2.class);
+                                    String s3 = Integer.toString(am - 1);
+                                    Intent i1 = new Intent(context, MainActivity6.class);
                                     String s = "GAME OVER! YOU STEPPED UPON MINE";
                                     i1.putExtra("msg", s);
                                     i1.putExtra("score", s3);
@@ -627,22 +742,57 @@ public class Mine extends View {
                                 (i + 1) * cellWidth, (j + 1) * cellWidth,
                                 mypaint);
                         if (j == 0) {
-                            if ((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1)) {
+
+                            if ((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i!=y1 - 1 && i!=y1 + 1))
+                            {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
-                            } else if ((i == x2 || i + 1 == x2 || i - 1 == x2) && (i != x1 - 1 && i != x1 + 1)) {
+                            }
+                            else if ((i == x2 || i + 1 == x2 || i - 1 == x2) && (i != x1 - 1 && i != x1 + 1)&&(i!=y1 - 1 && i!=y1 + 1)) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
-                            } else if ((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2)) {
+                            }
+                            else if((i != x1 - 1 && i != x1 + 1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i+1 == y1 || i-1 ==y1))
+                            {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i!=y1 - 1 && i!=y1 + 1))
+                            {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
-                            } else {
+                            }
+                            else if((i + 1 == x1 || i - 1 == x1) && (i != x2 && i != x2 - 1 && i != x2 + 1) && (i+1 == y1 || i-1 ==y1))
+                            {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if((i != x1 - 1 && i != x1 + 1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i+1 == y1 || i-1 ==y1))
+                            {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if((i + 1 == x1 || i - 1 == x1) && (i == x2 || i + 1 == x2 || i - 1 == x2) && (i+1 == y1 || i-1 ==y1))
+                            {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else
+                            {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
@@ -653,7 +803,8 @@ public class Mine extends View {
 //                paint.setTextSize(200);
 //                canvas.drawText("S", i*cellWidth, (j+1)*cellHeight, paint);
                         else if (j == 1) {
-                            if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+
+                            if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
@@ -661,47 +812,98 @@ public class Mine extends View {
                             }
 
 //                    else if((i==x1||i+1==x1||i-1==x1))
-                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
                             }
 //                    else if(i==x3||i+1==x3||i-1==x3)
-                            else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1)))
+                            {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("1", i * cellWidth, (j + 1) * cellWidth, paint);
                             }
 //                    else if((i+1==x2||i-1==x2)&&(i==x1||i+1==x1||i-1==x1))
-                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1))) {
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                             }
 //                    else if((i+1==x2||i-1==x2)&&(i==x3||i+1==x3||i-1==x3))
-                            else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                             }
 //                    else if((i==x3||i+1==x3||i-1==x3)&&(i==x1||i+1==x1||i-1==x1))
-                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("2", i * cellWidth, (j + 1) * cellWidth, paint);
                             }
 //                    else if((i+1==x2||i-1==x2)&&(i==x1||i+1==x1||i-1==x1)&&(i==x3||i+1==x3||i-1==x3))
-                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1))) {
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i != y1 && i != (y1 - 1) && i != (y1 + 1))) {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
                                 canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
-                            } else {
+                            }
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i != x3 && i != (x3 - 1) && i != (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i != x1 && i != (x1 - 1) && i != (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i != x2 - 1 && i != x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("3", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else if ((i == x2 - 1 || i == x2 + 1) && (i == x1 || i == (x1 - 1) || i == (x1 + 1)) && (i == x3 || i == (x3 - 1) || i == (x3 + 1)) && (i == y1 || i == (y1 - 1) || i == (y1 + 1))) {
+                                cp++;
+                                paint.setColor(Color.BLACK);
+                                paint.setTextSize(100);
+                                canvas.drawText("4", i * cellWidth, (j + 1) * cellWidth, paint);
+                            }
+                            else
+                            {
                                 cp++;
                                 paint.setColor(Color.BLACK);
                                 paint.setTextSize(100);
@@ -1018,6 +1220,7 @@ public class Mine extends View {
 
             }
         }
+    }
 
         paint.setColor(Color.BLACK);
 
@@ -1028,7 +1231,7 @@ public class Mine extends View {
         for (int i = 1; i < numRows; i++) {
             canvas.drawLine(0, i * cellWidth, width, i * cellWidth, paint);
         }
-        if(am==56 && count==0)
+        if(am==55 && count==0)
 
         {
 //            T.cancel();
@@ -1037,7 +1240,7 @@ public class Mine extends View {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i2 = new Intent(context, MainActivity3.class);
+                    Intent i2 = new Intent(context, MainActivity7.class);
                     String s1 = "CONGRATULATIONS!! YOU WON";
                     i2.putExtra("msg", s1);
                     i2.putExtra("tame", s2);
@@ -1080,5 +1283,6 @@ public class Mine extends View {
 
 
 }
+
 
 

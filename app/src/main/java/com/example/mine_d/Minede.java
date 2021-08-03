@@ -1587,7 +1587,7 @@ public class Minede extends View {
         for (int i = 1; i < numRows; i++) {
             canvas.drawLine(0, i * cellWidth, width, i * cellWidth, paint);
         }
-        if(am==55 && count==0)
+        if(am==54 && count==0)
 
         {
 //            T.cancel();
